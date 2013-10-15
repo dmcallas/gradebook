@@ -1,6 +1,11 @@
 from django.db import models
 
-
+class Department(models.Model):
+        name=models.CharField(max_length=10,primary_key=True,unique=True,blank=False)
+        long_name=models.CharField(max_length=50,null=True,blank=True)
+        def __unicode__(self):
+                return self.long_name
+        
 class EnrollmentStatus(models.Model):
 	description=models.TextField(unique=True,blank=False)
 	def __unicode__(self):
@@ -14,8 +19,9 @@ class AssignmentType(models.Model):
 class Course(models.Model):
 	title=models.TextField(blank=False)
 	number=models.IntegerField(unique=True,blank=False)
+        department=models.ForeignKey(Department,blank=False,on_delete=models.PROTECT)
 	def __unicode__(self):
-                return unicode(self.number) + ' - ' + self.title
+                return self.department.name+unicode(self.number) + ' - ' + self.title
 
 class Semester(models.Model):
 	name=models.TextField(blank=False)
@@ -85,3 +91,4 @@ class PermissionCode(models.Model):
 	def __unicode__(self):
                 return 'Section '+self.section.number + ': ' + unicode(self.permission_code)
 
+        
