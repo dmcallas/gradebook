@@ -24,7 +24,7 @@ class SectionAdmin(admin.ModelAdmin):
 admin.site.register(Section,SectionAdmin)
 
 class AssignmentAdmin(admin.ModelAdmin):
-    list_display=('section','name','max_value','assignment_type')
+    list_display=('section','name','max_value','assignment_type','assign_date','due_date','a_cutoff','b_cutoff','c_cutoff','d_cutoff')
     list_filter=['section','assignment_type','name']
     search_fields=['name']
 admin.site.register(Assignment,AssignmentAdmin)
@@ -36,6 +36,7 @@ admin.site.register(Student,StudentAdmin)
 
 class AssignmentScoreAdmin(admin.ModelAdmin):
     list_display=('assignment','student','score')
+    list_filter=['assignment']
     search_fields=['student','assignment']
 admin.site.register(AssignmentScore,AssignmentScoreAdmin)
 
