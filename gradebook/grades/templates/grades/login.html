@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Log In</h1>
+</div>
+
+
+<div class="panel">
+  <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+    {% csrf_token %}
+    <table>
+      {% if form.errors %}
+      <tr>
+	<td colspan="2">
+	  <div class="alert label">
+	    Your username and password didn't match. Please try again.
+	  </div>
+	</td>
+      </tr>
+      {% endif %}
+      <tr><td colspan="2">Please enter your username and password to proceed:</td></tr>
+      <tr>
+	<td>{{ form.username.label_tag }}</td>
+	<td>{{ form.username }}</td>
+      </tr>
+      <tr>
+	<td>{{ form.password.label_tag }}</td>
+	<td>{{ form.password }}</td>
+      </tr>
+      
+      <tr><td colspan="2">
+	  <input type="submit" value="login" />
+	  <input type="hidden" name="next" value="{{ next }}" />
+      </td></tr>
+    </table>
+  </form>
+</div>
+
+{% endblock %}

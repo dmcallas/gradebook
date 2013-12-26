@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Homework Entry{% endblock %}
+
+{% block content %}
+<table class="grade-table table table-hover table-condensed">
+<tr>
+  <th>Last</th>
+  <th>First</th>
+  {% for assignment in hw_assignments %}
+    <th>{{assignment.name}}</th>
+  {% endfor %}
+</tr>
+{% for r in roster %}
+  <tr id="{{r.student.id}}"><td>{{r.student.last_name}}</td><td>{{r.student.first_name}}</td>
+  {% for assignment in hw_assignments %}
+    <td>{{assignment.id}}</td>
+  {% endfor %}
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}
+
+{% block local_sidebar %}
+{% endblock %}

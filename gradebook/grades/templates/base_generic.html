@@ -1,0 +1,78 @@
+{% load static %}
+{% load foundation_tags %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% block meta %}{% endblock meta %}
+  {% block base_title %}
+  <title>{% block title %}Gradebook Site{% endblock title %}</title>
+  {% endblock base_title %}
+  
+  <link rel="stylesheet" href="{% static "grades/style.css" %}" />
+  
+  {# Base Foundation CSS #}
+  {% block foundation_css %}
+  {% foundation_css "normalize" %}
+  {% foundation_css "foundation.min" %}
+  {% endblock foundation_css %}  
+  
+  {# Custom CSS #}
+  {% block css %}{% endblock css %}
+  
+  {# Override if you need another version of modernizr #}
+  {% block foundation_modernizer %}
+  {% foundation_vendor "custom.modernizr" %}
+  {% endblock foundation_modernizer %}
+  
+  {# Custom head JS #}
+  {% block head_js %}{% endblock head_js %}
+</head>
+<body {% block body_attr %}{% endblock body_attr %}>
+  {# Main content goes here #}
+  {% block base_body %}
+  <div class="row">
+    <div class="large-3 columns">
+      <div role="complementary" class="bs-sidebar hidden-print affix">
+	<ul class="side-nav">    
+	  <li>
+	    <a href="{% url 'grades:section_index' %}">Gradebook Home</a>
+	  </li>
+	  {% block local_sidebar %}
+	  {% endblock %}
+	</ul>
+      </div>
+      
+    </div>
+    <div class="large-9 columns">
+      <div id="content" class="content">
+        {% block content %}No content defined!{% endblock %}
+      </div>
+    </div>
+  </div>
+  {% endblock base_body %}
+    
+  {# Override if you need another version of jQuery #}
+  {% block foundation_jquery %}
+  {% foundation_vendor "jquery" %}
+  {% endblock foundation_jquery %}
+  
+  {# Foundation JS #}
+  {% block foundation_js %}
+  {% foundation_js %}
+  {% endblock foundation_js %}
+  
+  {# Custom JS #}
+  {% block body_js %}{% endblock body_js %}
+  
+  {# Init Foundation #}
+  {% block foundation_js_init %}
+  <script>
+    $(document).foundation();
+  </script>
+  {% endblock foundation_js_init %}
+</body>
+</html>
+
