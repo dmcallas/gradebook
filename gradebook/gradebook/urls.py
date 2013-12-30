@@ -17,7 +17,8 @@ urlpatterns = patterns('',
 
     url(r'^grades/', include('grades.urls', namespace="grades")),
 
-                       url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'grades/login.html'}, name='login'),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'grades/login.html'}, name='login'),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout'),
 
     # ZURB Foundation
     url(r'^foundation/',include('foundation.urls')),
