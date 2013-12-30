@@ -3,8 +3,9 @@
 {% block title %}Homework Entry{% endblock %}
 
 {% block content %}
+{% if hw_assignments and roster %}
 Enter homework scores for Section <a href="{% url 'grades:section' section.id %}">{{section.number}}</a>:<br/>
-
+<br/>
 <table class="grade-table table table-hover table-condensed">
   <tr>
     <th style="text-align:left;">Last</th>
@@ -42,6 +43,10 @@ Enter homework scores for Section <a href="{% url 'grades:section' section.id %}
 
 Click on the <span class="noval" style="cursor:auto;">&ndash;</span> to mark the assignment as turned in. When the icon changes to  <i class="step fi-check size-14 turned-in" style="cursor:auto;"></i> the grade has been saved to the database.<br/>
 Click on the <i class="step fi-checkbox size-14 turned-in" style="cursor:auto;"></i> to remove the entry for an assignment. You will need to confirm the deletion.<br/>
+{% else %}
+<br/>There must be homework assignments with max score of 1.0 and students entered in to the system in order use this page.
+{% endif %}
+
 {% endblock %}
 
 {% block body_js %}
@@ -103,14 +108,13 @@ for (student in students){
 </script>
 {% endblock %}
 
-
 {% block local_sidebar %}
 <li>
-  Section {{section.number}}
+  <a href="{% url 'grades:section' section.id %}">Section {{section.number}}</a>
   <ul class="nav">
     <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
     <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
+    <li>Enter Homework Assignments</li>
   </ul>
 </li>
 {% endblock %}
-

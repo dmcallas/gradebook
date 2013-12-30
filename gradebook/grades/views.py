@@ -9,10 +9,9 @@ def index(request):
     return render(request, 'grades/index.html')
 
 def section_index(request):
-    section_list = get_list_or_404(Section)
+    section_list = list(Section.objects.all())
     return render(request, 'grades/section/index.html', {'section_list': section_list})
 
-@login_required
 def section(request,section_id):
     section = get_object_or_404(Section,pk=section_id)
     return render(request, 'grades/section/section.html', {'section': section})
@@ -20,12 +19,12 @@ def section(request,section_id):
 @login_required
 def roster(request,section_id):
     section = get_object_or_404(Section,pk=section_id)
-    roster = get_list_or_404(Roster,section=section_id)
+    roster = list(Roster.objects.filter(section=section_id))
     return render(request, 'grades/roster/roster.html', {'roster': roster,'section': section})
 
 def assignments(request,section_id):
     section = get_object_or_404(Section,pk=section_id)
-    assignments = get_list_or_404(Assignment,section=section_id)
+    assignments = list(Assignment.objects.filter(section=section_id));
     return render(request, 'grades/assignments/assignments.html', {'assignments': assignments,'section': section})
 
 @login_required
@@ -38,11 +37,11 @@ def roster_student(request,section_id,student_id):
 
 @login_required
 def hw_entry(request,section_id):
-    enrolled_status = get_object_or_404(EnrollmentStatus,description='ENROLLED')
-    hw_type = get_object_or_404(AssignmentType,description='Homework')
+    enrolled_status = EnrollmentStatus.objects.filter(description='ENROLLED')
+    hw_type = AssignmentType.objects.get(description='Homework')
     section = get_object_or_404(Section,pk=section_id)
-    hw_assignments = get_list_or_404(Assignment.objects.order_by('due_date').order_by('name'),section=section_id,assignment_type=hw_type)
-    roster = get_list_or_404(Roster,section=section_id,enrollment_status=enrolled_status)
+    hw_assignments = list(Assignment.objects.filter(section=section_id,assignment_type=hw_type).order_by('due_date').order_by('name'))
+    roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled_status))
     scores = AssignmentScore.objects.filter(assignment__section=section_id).filter(assignment__assignment_type__description='Homework').filter(assignment__max_value=1.0)
     return render(request, 'grades/entry/homework.html',{'section':section,'hw_assignments':hw_assignments,'roster':roster,'scores':scores})
 
