@@ -7,4 +7,6 @@
 <h1 id="site-name">{% trans 'Gradebook administration' %}</h1>
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block nav-global %}
+<a href="{% url 'grades:section_index' %}">Go to Gradebook</a>
+{% endblock %}
