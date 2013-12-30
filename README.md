@@ -52,3 +52,13 @@ changing both the username and password via the admin panel (go to
 http://localhost:8000/admin/, log in, go to the Users section, and
 edit the `admin` user to change the name. Use the "Change Password"
 link at the top-right to change the password.
+
+License
+=======
+
+This project is licensed under AGPLv3
+(http://www.gnu.org/licenses/agpl-3.0.html).
+
+If you believe you have a compelling reason I should relicense
+_portions_ of the application under a different flavor of GNU license
+(GPL or LGPL), please feel free to contact me with your rationale.
