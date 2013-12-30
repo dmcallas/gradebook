@@ -4,6 +4,11 @@
     margin:0pt;
 }
 
+.login-text{
+    font-size:8pt;
+}
+
+/* Homework entry styling */
 .grade-table {
     font-size:8pt;
     border-spacing:0;

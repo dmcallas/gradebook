@@ -39,11 +39,13 @@
     <div class="small-2 large-2 columns">
       <div role="complementary" class="bs-sidebar hidden-print affix">
 	<ul class="side-nav">
-{% if user.is_authenticated %}
-    <p>Logged in as {{ user.username }}.</p>
-{% else %}
-    <p><a href="{% url 'login' %}">Log in</a></p>
-{% endif %}
+	  <p class="login-text">
+	    {% if user.is_authenticated %}
+	      Logged in as {{ user.username }} | <a href="{% url 'logout' %}?next={{ request.get_full_path|urlencode }}">Sign out</a>
+	    {% else %}
+	      Logged out | <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">Sign in</a>
+	    {% endif %}
+	  </p>
 
 	  {% block full_sidebar %}
 	  <li>
@@ -51,6 +53,7 @@
 	  </li>
 	  {% block local_sidebar %}
 	  {% endblock %}
+	  <li><a href="{% url 'admin:index' %}grades/">Admin Panel</a></li>
 	  {% endblock %}
 	</ul>
       </div>
