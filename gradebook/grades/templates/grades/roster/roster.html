@@ -29,6 +29,22 @@
     </table>
 {% else %}
     <p>Roster is not available.</p>
+
 {% endif %}
 
+    <a href="{% url 'admin:index' %}grades/roster/add/?section={{section.id}}">Add a student to the roster.</a>
+
+
 {% endblock %}
+
+{% block local_sidebar %}
+<li>
+  <a href="{% url 'grades:section' section.id %}">Section {{section.number}}</a>
+  <ul class="nav">
+    <li>View Section Roster</li>
+    <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
+    <li><a href="{% url 'grades:hw_entry' section.id %}">Enter Homework Assignments</a></li>
+  </ul>
+</li>
+{% endblock %}
+

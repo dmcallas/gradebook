@@ -49,5 +49,12 @@
 {% endblock %}
 
 {% block local_sidebar %}
-
+<li>
+  <a href="{% url 'grades:section' section.id %}">Section {{section.number}}</a>
+  <ul class="nav">
+    <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
+    <li>View Section Assignments</li>
+    <li><a href="{% url 'grades:hw_entry' section.id %}">Enter Homework Assignments</a></li>
+  </ul>
+</li>
 {% endblock %}
