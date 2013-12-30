@@ -12,7 +12,14 @@
  {% if roster %}
 
 <table class="table table-striped table-condensed">
-  <tr><th>Student</th><th>Enrollment Status</th></tr>
+  <tr>
+    <th>
+      <span data-tooltip class="has-tip" title="View record for student.">Student</span>
+    </th>
+    <th>
+      <span data-tooltip class="has-tip" title="Edit enrollment status in the admin panel">Enrollment Status</span>
+    </th>
+  </tr>
   {% for roster_entry in roster %}
   <tr>
     <td><a href="{% url 'grades:roster_student' section.id roster_entry.student.id %}">{{ roster_entry.student }}</a></td>
