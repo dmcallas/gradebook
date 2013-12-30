@@ -41,7 +41,7 @@ Running
 
 From the gradebook/ directory, run the command `python manage.py
 runserver` to run locally. Then in the browser, go to
-http://localhost:8000/grades/.
+<http://localhost:8000/grades/>.
 
 Notes
 =====
@@ -49,7 +49,7 @@ Notes
 The example database is configured with user `admin` with password
 `admin`. If you are using this for anything more than a toy, I suggest
 changing both the username and password via the admin panel (go to
-http://localhost:8000/admin/, log in, go to the Users section, and
+<http://localhost:8000/admin/>, log in, go to the Users section, and
 edit the `admin` user to change the name. Use the "Change Password"
 link at the top-right to change the password.
 
