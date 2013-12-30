@@ -17,6 +17,10 @@ urlpatterns = patterns('',
 
     url(r'^grades/', include('grades.urls', namespace="grades")),
 
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'grades/login.html'}),
+                       url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'grades/login.html'}, name='login'),
+
+    # ZURB Foundation
     url(r'^foundation/',include('foundation.urls')),
+    # REST API
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )

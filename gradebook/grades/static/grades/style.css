@@ -12,6 +12,35 @@
 
 .grade-table td,.grade-table th{
     margin:0;
-    padding:0;
+    padding: 0 2px;
     border:none;
+    text-align:center;
 }
+
+.grade-table th{
+
+}
+
+.grade-table tr:hover td{
+    background-color:silver;
+}
+
+.turned-in{
+    color:green;
+    cursor:pointer;
+}
+
+.noval{
+    color:gray;
+    cursor:pointer;
+}
+
+/* Override Foundation styles: */
+.row{
+    max-width:100%;
+}
+
+table tr.even, table tr.alt, table tr:nth-of-type(2n) {
+    background: none repeat scroll 0 0 #eee;
+}
+

@@ -3,23 +3,114 @@
 {% block title %}Homework Entry{% endblock %}
 
 {% block content %}
+Enter homework scores for Section <a href="{% url 'grades:section' section.id %}">{{section.number}}</a>:<br/>
+
 <table class="grade-table table table-hover table-condensed">
-<tr>
-  <th>Last</th>
-  <th>First</th>
-  {% for assignment in hw_assignments %}
+  <tr>
+    <th style="text-align:left;">Last</th>
+    <th style="text-align:left;">First</th>
+    {% for assignment in hw_assignments %}
     <th>{{assignment.name}}</th>
-  {% endfor %}
-</tr>
-{% for r in roster %}
-  <tr id="{{r.student.id}}"><td>{{r.student.last_name}}</td><td>{{r.student.first_name}}</td>
-  {% for assignment in hw_assignments %}
-    <td>{{assignment.id}}</td>
-  {% endfor %}
+    {% endfor %}
+    <th style="text-align:left;">Last</th>
+    <th style="text-align:left;">First</th>
   </tr>
-{% endfor %}
+  {% for r in roster %}
+  <tr id="{{r.student.id}}">
+    <td style="white-space: nowrap; text-align:left;">{{r.student.last_name}}</td>
+    <td style="white-space: nowrap;padding-left:2px;padding-right:2px; text-align:left;">{{r.student.first_name}}</td>
+    {% for assignment in hw_assignments %}
+    <td id="{{r.student.id}}-{{assignment.id}}" data-student="{{r.student.id}}" data-assignment="{{assignment.id}}" data-score="0" data-url="{% url 'grades:hw_entry_add_remove' section_id=section.id student_id=r.student.id assignment_id=assignment.id %}">
+      <div class="noval">&ndash;</div>
+    </td>
+    {% endfor %}
+    <td style="white-space: nowrap; text-align:left;">{{r.student.last_name}}</td>
+    <td style="white-space: nowrap;padding-left:2px;padding-right:2px; text-align:left;">{{r.student.first_name}}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <th style="text-align:left;">Last</th>
+    <th style="text-align:left;">First</th>
+    {% for assignment in hw_assignments %}
+    <th>{{assignment.name}}</th>
+    {% endfor %}
+    <th style="text-align:left;">Last</th>
+    <th style="text-align:left;">First</th>
+  </tr>
+
 </table>
+
+Click on the <span class="noval" style="cursor:auto;">&ndash;</span> to mark the assignment as turned in. When the icon changes to  <i class="step fi-check size-14 turned-in" style="cursor:auto;"></i> the grade has been saved to the database.<br/>
+Click on the <i class="step fi-checkbox size-14 turned-in" style="cursor:auto;"></i> to remove the entry for an assignment. You will need to confirm the deletion.<br/>
 {% endblock %}
 
-{% block local_sidebar %}
+{% block body_js %}
+<script>
+var deleteEntry=function(elem){
+  if(!confirm("Are you sure you wish to delete this entry?")){return;}
+  elem.html('<i class="step fi-save size-14 noval submitable" style="cursor:auto;"></i>');
+  $.ajax({
+    url: elem.data('url'),
+    type: 'DELETE',
+    context: elem,
+  }).done(
+    function() {
+      elem.html('<i class="step fi-x size-14 noval"></i>');
+      elem.data('score',0);
+    }
+  );
+}
+
+var addEntry=function(elem){
+  elem.html('<i class="step fi-save size-14 noval submitable" style="cursor:auto;"></i>');
+  $.ajax({
+    url: elem.data('url'),
+    type: 'POST',
+    context: elem,
+  }).done(
+    function() {
+      elem.html('<i class="step fi-check size-14 turned-in"></i>');
+      elem.data('score',1)
+    }
+  );
+}
+
+var changeEntry=function(){
+  elem=$(this);
+  var score=elem.data('score');
+  if(score==1){
+    deleteEntry(elem);
+  }else{
+    addEntry(elem);
+  }
+}
+
+{% for s in scores %}
+var currentItem=$('#{{s.student.id}}-{{s.assignment.id}}');
+currentItem.html('<i class="step fi-checkbox size-14 turned-in"></i>');
+currentItem.data('score',1);
+{% endfor %}
+
+var students=[{% for r in roster %}{{r.student.id}},{% endfor %}];
+var assignments=[{% for assignment in hw_assignments %}{{assignment.id}},{% endfor %}];
+
+for (student in students){
+  for (assignment in assignments){
+    $('#'+students[student]+'-'+assignments[assignment]).click(changeEntry);
+  }
+}
+
+</script>
 {% endblock %}
+
+
+{% block local_sidebar %}
+<li>
+  Section {{section.number}}
+  <ul class="nav">
+    <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
+    <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
+  </ul>
+</li>
+{% endblock %}
+
