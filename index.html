@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Gradebook by dmcallas</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Gradebook</h1>
+        <p class="header">A Django-based gradebook backed by the database of your choice.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/dmcallas/gradebook/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/dmcallas/gradebook/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/dmcallas/gradebook">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/dmcallas">dmcallas</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="gradebook" class="anchor" href="#gradebook"><span class="octicon octicon-link"></span></a>Gradebook</h1>
+
+<p>A Django-based gradebook backed by the database of your choice
+(SQLite3 begin the default)</p>
+
+<h1>
+<a name="caveats" class="anchor" href="#caveats"><span class="octicon octicon-link"></span></a>Caveats</h1>
+
+<p>This is currently a very early version. I would not recommend using it
+for production purposes. If you do, I suggest backing up your database
+after every major operation. My preference is to use SQLite and send
+e-mail an encrypted copy of the database file to myself after every
+major assignment has been entered.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>You must have Django installed. You will also want to have
+django-zurb-foundation installed (I am using version 5.0.2).</p>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>Update the <code>settings.py</code> file as appropriate. If you are using a
+database other than SQLite3 you will need to add your database
+settings.</p>
+
+<p>If you wish to use, for example, PostgreSQL, look at old versions of
+<code>settings.py</code> to see how I had it configured for local testing.</p>
+
+<p>If you are not starting with the example database you will need to
+initialize the database you are using. Navigate to the directory with
+the <code>manage.py</code> file and run the command <code>python manage.py syncdb</code> after </p>
+
+<h1>
+<a name="running" class="anchor" href="#running"><span class="octicon octicon-link"></span></a>Running</h1>
+
+<p>From the gradebook/ directory, run the command <code>python manage.py
+runserver</code> to run locally. Then in the browser, go to
+<a href="http://localhost:8000/grades/">http://localhost:8000/grades/</a>.</p>
+
+<h1>
+<a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h1>
+
+<p>The example database is configured with user <code>admin</code> with password
+<code>admin</code>. If you are using this for anything more than a toy, I suggest
+changing both the username and password via the admin panel (go to
+<a href="http://localhost:8000/admin/">http://localhost:8000/admin/</a>, log in, go to the Users section, and
+edit the <code>admin</code> user to change the name. Use the "Change Password"
+link at the top-right to change the password.</p>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>This project is licensed under AGPLv3
+(<a href="http://www.gnu.org/licenses/agpl-3.0.html">http://www.gnu.org/licenses/agpl-3.0.html</a>).</p>
+
+<p>If you believe you have a compelling reason I should relicense
+<em>portions</em> of the application under a different flavor of GNU license
+(GPL or LGPL), please feel free to contact me with your rationale.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
