@@ -2,7 +2,7 @@
 {% load foundation_tags %}
 
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,8 +11,6 @@
   <title>{% block title %}Gradebook Site{% endblock title %}</title>
   {% endblock base_title %}
   
-  <link rel="stylesheet" href="{% static "grades/style.css" %}" />
-  
   {# Base Foundation CSS #}
   {% block foundation_css %}
   {% foundation_css "normalize" %}
@@ -20,7 +18,10 @@
   {% endblock foundation_css %}  
   
   {# Custom CSS #}
-  {% block css %}{% endblock css %}
+  {% block css %}
+    {% foundation_css 'foundation-icons' %}
+    <link rel="stylesheet" href="{% static "grades/style.css" %}" />
+  {% endblock css %}
   
   {# Override if you need another version of modernizr #}
   {% block foundation_modernizer %}
@@ -33,20 +34,29 @@
 <body {% block body_attr %}{% endblock body_attr %}>
   {# Main content goes here #}
   {% block base_body %}
+
   <div class="row">
-    <div class="large-3 columns">
+    <div class="small-2 large-2 columns">
       <div role="complementary" class="bs-sidebar hidden-print affix">
-	<ul class="side-nav">    
+	<ul class="side-nav">
+{% if user.is_authenticated %}
+    <p>Logged in as {{ user.username }}.</p>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a></p>
+{% endif %}
+
+	  {% block full_sidebar %}
 	  <li>
 	    <a href="{% url 'grades:section_index' %}">Gradebook Home</a>
 	  </li>
 	  {% block local_sidebar %}
 	  {% endblock %}
+	  {% endblock %}
 	</ul>
       </div>
       
     </div>
-    <div class="large-9 columns">
+    <div class="small-10 large-10 columns">
       <div id="content" class="content">
         {% block content %}No content defined!{% endblock %}
       </div>
