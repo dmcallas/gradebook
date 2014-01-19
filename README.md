@@ -2,7 +2,7 @@ Gradebook
 =========
 
 A Django-based gradebook backed by the database of your choice
-(SQLite3 begin the default)
+(SQLite3 being the default)
 
 Caveats
 =======
@@ -24,6 +24,7 @@ Dependencies
 * You will also want to have 
 [django-zurb-foundation](https://pypi.python.org/pypi/django-zurb-foundation) 
 installed (I am using version 5.0.2). 
+* You need to either have South installed (`pip install South`) or remove it from the INSTALLED_APPS list.
 
 Configuration
 -------------
