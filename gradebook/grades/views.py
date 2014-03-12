@@ -19,8 +19,9 @@ def section(request,section_id):
 @login_required
 def roster(request,section_id):
     section = get_object_or_404(Section,pk=section_id)
-    roster = list(Roster.objects.filter(section=section_id))
-    return render(request, 'grades/roster/roster.html', {'roster': roster,'section': section})
+    roster = list(Roster.objects.filter(section=section_id).order_by('student__last_name','student__first_name'))
+    enrollment_statuses = list(EnrollmentStatus.objects.all())
+    return render(request, 'grades/roster/roster.html', {'roster': roster,'section': section,'enrollment_statuses':enrollment_statuses})
 
 def assignments(request,section_id):
     section = get_object_or_404(Section,pk=section_id)
@@ -41,7 +42,7 @@ def hw_entry(request,section_id):
     hw_type = AssignmentType.objects.get(description='Homework')
     section = get_object_or_404(Section,pk=section_id)
     hw_assignments = list(Assignment.objects.filter(section=section_id,assignment_type=hw_type).order_by('due_date').order_by('name'))
-    roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled_status))
+    roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled_status).order_by('student__last_name','student__first_name'))
     scores = AssignmentScore.objects.filter(assignment__section=section_id).filter(assignment__assignment_type__description='Homework').filter(assignment__max_value=1.0)
     return render(request, 'grades/entry/homework.html',{'section':section,'hw_assignments':hw_assignments,'roster':roster,'scores':scores})
 
@@ -50,8 +51,8 @@ def hw_entry(request,section_id):
 def hw_assignment_add_remove(request,section_id,student_id,assignment_id):
     student=get_object_or_404(Student,id=student_id)
     assignment=get_object_or_404(Assignment,id=assignment_id)
-    assignment_score=AssignmentScore(student=student,assignment=assignment,score=1.0)
     if request.method=='POST':
+        assignment_score=AssignmentScore(student=student,assignment=assignment,score=1.0)
         assignment_score.save()
         return HttpResponse("Added")
     if request.method=='DELETE':
