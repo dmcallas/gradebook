@@ -139,6 +139,8 @@ INSTALLED_APPS = (
     # 'rest_framework',
     # My apps:
     'grades',
+    # Functional tests
+    'functional_tests',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
