@@ -40,6 +40,10 @@ If you are not starting with the example database you will need to
 initialize the database you are using. Navigate to the directory with
 the `manage.py` file and run the command `python manage.py syncdb` after 
 
+If you are using the example database, you will want to change
+`settings.py` database setting from `'NAME': '../../../grades/gradebook.db'` to
+`'NAME': 'gradebook.db.example'`
+
 Running
 =======
 
