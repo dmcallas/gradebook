@@ -21,7 +21,7 @@ Enter homework scores for Section <a href="{% url 'grades:section' section.id %}
     <td style="white-space: nowrap; text-align:left;">{{r.student.last_name}}</td>
     <td style="white-space: nowrap;padding-left:2px;padding-right:2px; text-align:left;">{{r.student.first_name}}</td>
     {% for assignment in hw_assignments %}
-    <td id="{{r.student.id}}-{{assignment.id}}" data-student="{{r.student.id}}" data-assignment="{{assignment.id}}" data-score="0" data-url="{% url 'grades:hw_entry_add_remove' section_id=section.id student_id=r.student.id assignment_id=assignment.id %}">
+    <td id="{{r.student.id}}-{{assignment.id}}" data-student="{{r.student.id}}" data-assignment="{{assignment.id}}" data-score="0" data-url="{% url 'grades:hw_entry_add_remove' section_id=section.id student_id=r.student.id assignment_id=assignment.id %}" title="{{assignment.name}} - {{r.student.last_name}}, {{r.student.first_name}}">
       <div class="noval">&ndash;</div>
     </td>
     {% endfor %}
