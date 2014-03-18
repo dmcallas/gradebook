@@ -31,7 +31,7 @@ def assignments(request,section_id):
 @login_required
 def roster_student(request,section_id,student_id):
     section = get_object_or_404(Section,pk=section_id)
-    assignment_scores = list(AssignmentScore.objects.filter(student=student_id))
+    assignment_scores = list(AssignmentScore.objects.filter(student=student_id).order_by('assignment__name'))
     student = get_object_or_404(Student,pk=student_id)
     roster = get_object_or_404(Roster,student=student_id,section=section_id)
     return render(request, 'grades/roster/roster_student.html', {'assignment_scores': assignment_scores,'section': section,'student':student,'roster':roster})
