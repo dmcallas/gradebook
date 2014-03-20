@@ -31,7 +31,11 @@
     <tr>
         <td>{{assignment.assignment.name}}</dt>
         <td>{{assignment.assignment.assignment_type}}</td>
-        <td><a href="{% url 'admin:index' %}grades/assignmentscore/{{assignment.id}}/">{{assignment.score}}</a></td>
+	{% if privacy %}
+          <td>{{assignment.score}}</td>
+	{% else %}
+          <td><a href="{% url 'admin:index' %}grades/assignmentscore/{{assignment.id}}/">{{assignment.score}}</a></td>
+	{% endif %}
 	<td>{{assignment.get_letter_grade}}</td>
         <td>{{assignment.assignment.max_value}}</td>
     </tr>
@@ -42,7 +46,11 @@
     <p>No assignment scores are available.</p>
 {% endif %}
 
+
+{% if not privacy %}
     <a href="{% url 'admin:index' %}grades/assignmentscore/add/?student={{student.id}}">Add a new assignment score</a>
+{% endif %}
+
 {% endblock %}
 
 {% block local_sidebar %}

@@ -18,10 +18,16 @@ def section(request,section_id):
 
 @login_required
 def roster(request,section_id):
+    privacy=(request.GET.get('p', 'false')=='true')
     section = get_object_or_404(Section,pk=section_id)
-    roster = list(Roster.objects.filter(section=section_id).order_by('student__last_name','student__first_name'))
+    if privacy:
+        enrolled=get_object_or_404(EnrollmentStatus,description='ENROLLED')
+        roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled).order_by('student__last_name','student__first_name'))
+    else:
+        roster = list(Roster.objects.filter(section=section_id).order_by('student__last_name','student__first_name'))
     enrollment_statuses = list(EnrollmentStatus.objects.all())
-    return render(request, 'grades/roster/roster.html', {'roster': roster,'section': section,'enrollment_statuses':enrollment_statuses})
+
+    return render(request, 'grades/roster/roster.html', {'roster': roster,'section': section,'enrollment_statuses':enrollment_statuses,'privacy':privacy})
 
 def assignments(request,section_id):
     section = get_object_or_404(Section,pk=section_id)
@@ -30,11 +36,12 @@ def assignments(request,section_id):
 
 @login_required
 def roster_student(request,section_id,student_id):
+    privacy=(request.GET.get('p', 'false')=='true')
     section = get_object_or_404(Section,pk=section_id)
     assignment_scores = list(AssignmentScore.objects.filter(student=student_id).order_by('assignment__name'))
     student = get_object_or_404(Student,pk=student_id)
     roster = get_object_or_404(Roster,student=student_id,section=section_id)
-    return render(request, 'grades/roster/roster_student.html', {'assignment_scores': assignment_scores,'section': section,'student':student,'roster':roster})
+    return render(request, 'grades/roster/roster_student.html', {'assignment_scores': assignment_scores,'section': section,'student':student,'roster':roster,'privacy':privacy})
 
 @login_required
 def hw_entry(request,section_id):
