@@ -8,7 +8,7 @@
  {% if section_list %}
     <ul>
     {% for section in section_list %}
-        <li><a href="{% url 'grades:section' section.id %}">{{ section }}</a></li>
+        <li><a id="section-{{section.id}}-link" href="{% url 'grades:section' section.id %}">{{ section }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
