@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.urlresolvers import reverse
+from django.shortcuts import resolve_url
 
 class Department(models.Model):
         name=models.CharField(max_length=10,primary_key=True,unique=True,blank=False)
@@ -33,6 +35,8 @@ class Section(models.Model):
 	course=models.ForeignKey(Course,blank=False,on_delete=models.PROTECT)
 	number=models.CharField(max_length=10,blank=False)
 	semester=models.ForeignKey(Semester,blank=False,on_delete=models.PROTECT)
+        def get_absolute_url(self):
+                return resolve_url('grades:section',section_id=self.id)
 	def __unicode__(self):
                 return unicode(self.number) + ' (' + unicode(self.course) + ' - ' + unicode(self.semester) + ')'
 
@@ -89,6 +93,8 @@ class Roster(models.Model):
 	section=models.ForeignKey(Section,blank=False,on_delete=models.PROTECT)
 	student=models.ForeignKey(Student,blank=False,on_delete=models.PROTECT)
 	enrollment_status=models.ForeignKey(EnrollmentStatus,blank=False,on_delete=models.PROTECT)
+        def get_absolute_url(self):
+                return resolve_url('grades:roster_student',section_id=self.section.id,student_id=self.student.id)
 	def __unicode__(self):
                 return unicode(self.section) + '/' + unicode(self.student)
         class Meta:
