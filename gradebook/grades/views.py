@@ -65,3 +65,12 @@ def hw_assignment_add_remove(request,section_id,student_id,assignment_id):
     if request.method=='DELETE':
         AssignmentScore.objects.filter(student=student,assignment=assignment,score=1.0).delete()
         return HttpResponse("Deleted")
+
+@login_required
+def view_scores(request,section_id):
+    enrolled_status = EnrollmentStatus.objects.filter(description='ENROLLED')
+    section = get_object_or_404(Section,pk=section_id)
+    assignments = list(Assignment.objects.filter(section=section_id).order_by('assignment_type').order_by('due_date').order_by('name'))
+    roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled_status).order_by('student__last_name','student__first_name'))
+    scores = AssignmentScore.objects.filter(assignment__section=section_id)
+    return render(request, 'grades/view/all.html',{'section':section,'assignments':assignments,'roster':roster,'scores':scores})
