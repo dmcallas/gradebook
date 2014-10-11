@@ -57,5 +57,12 @@
     <li><a href="{% url 'grades:view_scores' section.id %}">View All Scores</a></li>
   </ul>
 </li>
+<li>
+{% if not privacy %}
+  <a href="?p=true">Enable privacy mode</a>
+{% else %}
+  <a href="./">Leave privacy mode</a>
+{% endif %}
+</li>
 {% endblock %}
 
