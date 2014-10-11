@@ -30,7 +30,7 @@ class AssignmentAdmin(admin.ModelAdmin):
 admin.site.register(Assignment,AssignmentAdmin)
 
 class StudentAdmin(admin.ModelAdmin):
-	list_display=('id','last_name','first_name','middle_name','nick_name','suffix','phone','email')
+        list_display=('id','last_name','first_name','middle_name','nick_name','suffix','phone','email')
         search_fields=('last_name','first_name','middle_name','nick_name')
 admin.site.register(Student,StudentAdmin)
 
