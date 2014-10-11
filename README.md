@@ -19,7 +19,7 @@ Installation
 Dependencies
 ------------
 
-* You need to have Python (I am using 2.7, but may move to 3).
+* You need to have Python 3.
 * You must have Django installed. 
 * You will also want to have 
 [django-zurb-foundation](https://pypi.python.org/pypi/django-zurb-foundation) 
