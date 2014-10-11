@@ -115,6 +115,7 @@ for (student in students){
     <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
     <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
     <li>Enter Homework Assignments</li>
+    <li><a href="{% url 'grades:view_scores' section.id %}">View All Scores</a></li>
   </ul>
 </li>
 {% endblock %}

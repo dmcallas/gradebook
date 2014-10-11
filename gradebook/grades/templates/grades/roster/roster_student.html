@@ -57,9 +57,14 @@
 <li>
   <a href="{% url 'grades:section' section.id %}">Section {{section.number}}</a>
   <ul>
+    {% if not privacy %}
     <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
+    {% else %}
+    <li><a href="{% url 'grades:roster' section.id %}?p=true">View Section Roster</a></li>
+    {% endif %}
     <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
     <li><a href="{% url 'grades:hw_entry' section.id %}">Enter Homework Assignments</a></li>
+    <li><a href="{% url 'grades:view_scores' section.id %}">View All Scores</a></li>
   </ul>
 </li>
 {% endblock %}

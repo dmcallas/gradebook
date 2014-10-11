@@ -5,6 +5,7 @@
 {% block content %}
 
   <h1>Roster</h1>
+
 <table>
   <tr><th>Section:</th> <td><a href="{% url 'grades:section' section.id %}">{{section.number}}</a></td></tr>
   <tr><th>Class:  </th> <td>{{section.course}}</td></tr>
@@ -53,6 +54,7 @@
     <li>View Section Roster</li>
     <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
     <li><a href="{% url 'grades:hw_entry' section.id %}">Enter Homework Assignments</a></li>
+    <li><a href="{% url 'grades:view_scores' section.id %}">View All Scores</a></li>
   </ul>
 </li>
 {% endblock %}
