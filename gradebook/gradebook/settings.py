@@ -136,7 +136,7 @@ INSTALLED_APPS = (
     # ZURB Foundation:
     'foundation',
     # REST:
-    # 'rest_framework',
+    'rest_framework',
     # My apps:
     'grades',
     # Functional tests
@@ -172,4 +172,8 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }

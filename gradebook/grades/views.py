@@ -2,7 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
+from rest_framework import viewsets, permissions
 
+from grades.serializers import *
 from grades.models import *
 
 def index(request):
@@ -74,3 +76,76 @@ def view_scores(request,section_id):
     roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled_status).order_by('student__last_name','student__first_name'))
     scores = AssignmentScore.objects.filter(assignment__section=section_id)
     return render(request, 'grades/view/all.html',{'section':section,'assignments':assignments,'roster':roster,'scores':scores})
+
+
+##################################################
+#                 Views for REST                 #
+##################################################
+
+class DepartmentViewSet(viewsets.ModelViewSet):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class EnrollmentStatusViewSet(viewsets.ModelViewSet):
+    queryset = EnrollmentStatus.objects.all()
+    serializer_class = EnrollmentStatusSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+class AssignmentTypeViewSet(viewsets.ModelViewSet):
+    queryset = AssignmentType.objects.all()
+    serializer_class = AssignmentTypeSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    filter_fields = ('department',)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class SemesterViewSet(viewsets.ModelViewSet):
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class SectionViewSet(viewsets.ModelViewSet):
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
+    filter_fields = ('course','semester',)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class AssignmentViewSet(viewsets.ModelViewSet):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentSerializer
+    filter_fields = ('assignment_type','section',)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    filter_fields = ('last_name', 'first_name',)
+    permission_classes = (permissions.IsAuthenticated,)
+
+class AssignmentScoreViewSet(viewsets.ModelViewSet):
+    queryset = AssignmentScore.objects.all()
+    serializer_class = AssignmentScoreSerializer
+    filter_fields = ('student','assignment',)
+    permission_classes = (permissions.IsAuthenticated,)
+
+class RosterViewSet(viewsets.ModelViewSet):
+    queryset = Roster.objects.all()
+    serializer_class = RosterSerializer
+    filter_fields = ('section','student','enrollment_status',)
+    permission_classes = (permissions.IsAuthenticated,)
+
+class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = Attendance.objects.all()
+    serializer_class = AttendanceSerializer
+    filter_fields = ('section','student',)
+    permission_classes = (permissions.IsAuthenticated,)
+
+class PermissionCodeViewSet(viewsets.ModelViewSet):
+    queryset = PermissionCode.objects.all()
+    serializer_class = PermissionCodeSerializer
+    filter_fields = ('section',)
+    permission_classes = (permissions.IsAuthenticated,)
