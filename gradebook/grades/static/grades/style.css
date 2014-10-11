@@ -8,6 +8,10 @@
     font-size:8pt;
 }
 
+a{
+    color:#000;
+}
+
 /* Homework entry styling */
 .grade-table {
     font-size:8pt;
