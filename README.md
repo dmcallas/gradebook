@@ -19,11 +19,12 @@ Installation
 Dependencies
 ------------
 
-* You need to have Python 3.
+* You need to have Python 3. In the commands below, be sure to use the `pip` for Python 3 if you have multiple Python versions installed.
 * You must have Django installed. 
-* You will also want to have 
-[django-zurb-foundation](https://pypi.python.org/pypi/django-zurb-foundation) 
-installed (I am using version 5.0.2). 
+* 'pip install django-zurb-foundation`
+* `pip install djangorestframework`
+* `pip install markdown`
+* `pip install django-filter`
 * You need to either have South installed (`pip install South`) or remove it from the INSTALLED_APPS list.
 
 Configuration
