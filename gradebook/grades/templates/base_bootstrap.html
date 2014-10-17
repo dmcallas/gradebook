@@ -1,5 +1,4 @@
 {% load static %}
-{% load foundation_tags %}
 
 <!doctype html>
 <html lang="en">
@@ -8,25 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% block meta %}{% endblock meta %}
   {% block base_title %}
-  <title>{% block title %}Gradebook Site{% endblock title %}</title>
+    <title>{% block title %}Gradebook Site{% endblock title %}</title>
   {% endblock base_title %}
   
-  {# Base Foundation CSS #}
-  {% block foundation_css %}
-  {% foundation_css "normalize" %}
-  {% foundation_css "foundation.min" %}
-  {% endblock foundation_css %}  
+  {# Base Bootstrap CSS #}
+  {% block bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'grades/bootstrap/css/bootstrap.css' %}" />
+  {% endblock bootstrap_css %}  
   
   {# Custom CSS #}
   {% block css %}
-    {% foundation_css 'foundation-icons' %}
-    <link rel="stylesheet" href="{% static "grades/style.css" %}" />
+    <link rel="stylesheet" href="{% static 'grades/style.css' %}" />
   {% endblock css %}
-  
-  {# Override if you need another version of modernizr #}
-  {% block foundation_modernizer %}
-  {% foundation_vendor "custom.modernizr" %}
-  {% endblock foundation_modernizer %}
   
   {# Custom head JS #}
   {% block head_js %}{% endblock head_js %}
@@ -35,10 +27,10 @@
   {# Main content goes here #}
   {% block base_body %}
 
-  <div class="row">
-    <div class="small-2 large-2 columns">
-      <div role="complementary" class="bs-sidebar hidden-print affix">
-	<ul class="side-nav">
+  <div class="row-fluid">
+    <div class="col-md-2">
+      <!--div role="complementary" class="bs-sidebar hidden-print affix"-->
+	<ul class="nav nav-pills nav-stacked">
 	  <p class="login-text">
 	    {% if user.is_authenticated %}
 	      Logged in as {{ user.username }} | <a href="{% url 'logout' %}?next={{ request.get_full_path|urlencode }}">Sign out</a>
@@ -55,36 +47,22 @@
 	  <li><a href="{% url 'api-root' %}">REST API</a></li>
 	  {% endblock %}
 	</ul>
-      </div>
-      
+      <!--/div-->
     </div>
-    <div class="small-10 large-10 columns">
-      <div id="content" class="content">
+
+    <div class="col-md-8 offset1">
+      <!div id="content" class="content">
         {% block content %}No content defined!{% endblock %}
-      </div>
+      <!/div>
     </div>
   </div>
+
   {% endblock base_body %}
-    
-  {# Override if you need another version of jQuery #}
-  {% block foundation_jquery %}
-  {% foundation_vendor "jquery" %}
-  {% endblock foundation_jquery %}
-  
-  {# Foundation JS #}
-  {% block foundation_js %}
-  {% foundation_js %}
-  {% endblock foundation_js %}
-  
+
+  <script src="{% static 'grades/jquery/jquery-2.0.3.min.js' %}" type="text/javascript" />
+
   {# Custom JS #}
   {% block body_js %}{% endblock body_js %}
-  
-  {# Init Foundation #}
-  {% block foundation_js_init %}
-  <script>
-    $(document).foundation();
-  </script>
-  {% endblock foundation_js_init %}
 </body>
 </html>
 

@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "base_bootstrap.html" %}
 
 {% block title %}Section {{ section.number }}{% endblock %}
 
@@ -18,9 +18,9 @@
 {% endblock %}
 
 {% block local_sidebar %}
-<li>
-  Section {{section.number}}
-  <ul class="nav">
+<li class="active">
+  <a href="#">Section {{section.number}}</a>
+  <ul class="nav nav-pills nav-stacked well well-sm">
     <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
     <li><a href="{% url 'grades:assignments' section.id %}">View Section Assignments</a></li>
     <li><a href="{% url 'grades:hw_entry' section.id %}">Enter Homework Assignments</a></li>

@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "base_bootstrap.html" %}
 
 {% block title %}Assignmants{% endblock %}
 
@@ -26,6 +26,7 @@
     <th>C Cutoff</th>
     <th>D Cutoff</th>
   </tr>
+  <br/>
   {% for assignment in assignments %}
   <tr>
     <td><a href="{% url 'admin:index' %}grades/assignment/{{assignment.id}}/">{{assignment.name}}</a></td>
@@ -51,9 +52,9 @@
 {% block local_sidebar %}
 <li>
   <a href="{% url 'grades:section' section.id %}">Section {{section.number}}</a>
-  <ul class="nav">
+  <ul class="nav nav-pills nav-stacked well well-sm">
     <li><a href="{% url 'grades:roster' section.id %}">View Section Roster</a></li>
-    <li>View Section Assignments</li>
+    <li class="active"><a href="#">View Section Assignments</a></li>
     <li><a href="{% url 'grades:hw_entry' section.id %}">Enter Homework Assignments</a></li>
     <li><a href="{% url 'grades:view_scores' section.id %}">View All Scores</a></li>
   </ul>
