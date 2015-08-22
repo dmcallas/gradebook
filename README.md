@@ -21,7 +21,7 @@ Dependencies
 
 * You need to have Python 3. In the commands below, be sure to use the `pip` for Python 3 if you have multiple Python versions installed.
 * You must have Django installed. 
-* 'pip install django-zurb-foundation`
+* `pip install django-zurb-foundation`
 * `pip install djangorestframework`
 * `pip install markdown`
 * `pip install django-filter`
