@@ -37,6 +37,15 @@ def assignments(request,section_id):
     return render(request, 'grades/assignments/assignments.html', {'assignments': assignments,'section': section})
 
 @login_required
+def assignment(request,section_id,assignment_id):
+    section = get_object_or_404(Section,pk=section_id)
+    assignment = get_object_or_404(Assignment,pk=assignment_id)
+    enrolled = get_object_or_404(EnrollmentStatus,description='ENROLLED')
+    assignment_scores = list(AssignmentScore.objects.filter(assignment=assignment_id).order_by('student__last_name','student__first_name'))
+    roster = list(Roster.objects.filter(section=section_id).filter(enrollment_status=enrolled).exclude(student__assignmentscore__assignment=assignment_id).order_by('student__last_name','student__first_name'))
+    return render(request, 'grades/assignments/assignment.html', {'assignment':assignment, 'section':section, 'scores':assignment_scores, 'students':roster})
+
+@login_required
 def roster_student(request,section_id,student_id):
     privacy=(request.GET.get('p', 'false')=='true')
     section = get_object_or_404(Section,pk=section_id)
